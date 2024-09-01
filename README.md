@@ -1,5 +1,6 @@
 # 2023-LoLObjectives-Report
 An in-depth report regarding the impact of 2023 League of Legends objectives on a match's outcome. Part of HDSI's DSC curriculum as a project for DSC80.
+<<<<<<< HEAD
 
 # League of Legends Match Analysis
 
@@ -23,3 +24,6 @@ This project is a comprehensive analysis of League of Legends (LoL) match data. 
 
 ### Bivariate Analysis
 - **Objective vs. Outcome**: Correlation matrices reveal which objectives are strongly associated with winning.
+=======
+https://klh005.github.io/2023-LoLObjectives-Report/
+>>>>>>> ebf0fcee794af6be5d0a324caea05763f1f7ff43
