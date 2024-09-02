@@ -85,7 +85,7 @@ These steps provided a clearer view of how objectives correlate with match outco
 
 Here is the first 50 gameid-side rows (25 different games) by the groupby below.
 
-<iframe src="/assets/grouped_data_1.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/grouped_data_1.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ### Univariate Analysis
 - **Objective Distribution**: Histograms show the frequency of securing objectives, highlighting their importance in matches.
