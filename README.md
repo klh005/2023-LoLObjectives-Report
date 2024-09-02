@@ -19,15 +19,15 @@ League of Legends (LoL) is a fast-paced, team-based strategy game where two team
 
 In every match, players engage with different objectives, each offering unique benefits:
 
-- Baron Nashor: This powerful neutral monster, when defeated, provides a team-wide buff that strengthens players and their minions, facilitating stronger pushes toward enemy structures.
+- Baron Nashor: A neutral monster, when defeated, provides a team-wide buff that strengthens players. Considered one of the most powerful buffs in the game.
 
 - Drakes (Dragons): These elemental creatures offer stacking buffs that enhance various aspects of a team’s performance, such as attack power or healing. After four are secured, the Elder Dragon can be summoned, granting even greater power.
 
-- Rift Herald: Found in the early game, the Herald helps by delivering massive damage to enemy towers, opening up the map for more aggressive plays.
+- Rift Herald: Limited to the "early game", Herald helps by delivering massive damage to enemy towers. It's used to capture tower or distract the enemy.
 
-- Jungle Monsters: Including the Scuttle Crab, which grants vision and speed boosts, and other camps that offer gold, experience, and buffs essential for mid-game power spikes.
+- Jungle Monsters: Including the Scuttle Crab, which grants vision and speed boosts, and other camps that offer gold, experience, and buffs.
 
-- Towers: These defensive structures must be destroyed to progress through the map. Taking down towers opens pathways to the Nexus and grants valuable gold to the team.
+- Towers: The defensive structures that must be destroyed to progress through the map. Taking down towers opens pathways to the Nexus and grants numerous gold to the team.
 
 The report seeks to answer which of these objectives are most crucial to winning a game of League of Legends. Through detailed analysis and modeling, we will uncover the impact each objective has on a match's outcome, offering insights into strategic priorities for competitive play.
 
@@ -70,8 +70,24 @@ The dataset provides a detailed overview of gameplay metrics and match outcomes 
 
 This detailed breakdown of the dataset columns will guide our analysis as we investigate which objectives most significantly impact match outcomes in League of Legends.
 
+## Data Cleaning
+To streamline the data for analysis, we began by retaining only the relevant columns: gameid, side, result, teamkills, teamdeaths, and all the objective-related columns. This was done to focus our analysis on how objectives influence match outcomes.
 
-## Data Analysis
+Next, we performed two main grouping operations:
+
+Grouping by league: We grouped the data by league and aggregated each objective using the maximum value. This allowed us to see the distribution of objectives across different leagues.
+Grouping by gameid and side: This grouping was done to summarize each team’s performance in terms of objectives, teamkills, and teamdeaths.
+These steps provided a clearer view of how objectives correlate with match outcomes and other gameplay statistics, setting the stage for further analysis. Below is a snapshot of the cleaned dataframe:
+
+| gameid          | side | result | teamkills | teamdeaths | firstdragon | ... |
+|-----------------|------|--------|-----------|------------|-------------|-----|
+| ESPORTSTMNT01_1 | Blue | 1      | 15        | 10         | 1           | ... |
+| ESPORTSTMNT01_2 | Red  | 0      | 12        | 13         | 0           | ... |
+| ESPORTSTMNT02_1 | Blue | 1      | 18        | 8          | 1           | ... |
+| ESPORTSTMNT02_2 | Red  | 0      | 11        | 15         | 0           | ... |
+| ...             | ...  | ...    | ...       | ...        | ...         | ... |
+
+
 
 ### Univariate Analysis
 - **Objective Distribution**: Histograms show the frequency of securing objectives, highlighting their importance in matches.
