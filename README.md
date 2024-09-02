@@ -1,6 +1,4 @@
----
-permalink: README.html
----
+
 # League of Legends Objective Impact Analysis
 - Kliment Ho
 
