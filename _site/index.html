@@ -110,7 +110,7 @@ most impactful objective upon a match’s outcome.</p>
 
 <h3 id="relevant-columns">Relevant Columns</h3>
 
-<p>The dataset provides a detailed overview of gameplay metrics and match outcomes from professional League of Legends esports matches. There are 148,992 rows in this dataset, and here’s an introduction to some of the key columns:</p>
+<p>The dataset provides a detailed overview of gameplay metrics and match outcomes from professional League of Legends esports matches.</p>
 
 <ul>
   <li><strong>Major Outcome Columns:</strong>
@@ -121,8 +121,14 @@ most impactful objective upon a match’s outcome.</p>
       <li><strong>teamkills</strong>: The total number of kills secured by the team.</li>
       <li><strong>teamdeaths</strong>: The total number of deaths experienced by the team.</li>
       <li><strong>side</strong>: Specifies whether the team was on the “blue” or “red” side during the match.</li>
+      <li><strong>champion</strong>: The name of the champion a player selected. Is NaN if the row is considered “team data”.</li>
     </ul>
   </li>
+</ul>
+
+<p> </p>
+
+<ul>
   <li><strong>Objectives:</strong>
     <ul>
       <li><strong>firstdragon</strong>: Indicates whether the team secured the first dragon.</li>
@@ -168,10 +174,31 @@ These steps provided a clearer view of how objectives correlate with match outco
 
 <iframe src="assets/grouped_data_1.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<h3 id="univariate-analysis">Univariate Analysis</h3>
-<ul>
-  <li><strong>Objective Distribution</strong>: Histograms show the frequency of securing objectives, highlighting their importance in matches.</li>
-</ul>
+<h3 id="univariate-analysis-distribution-of-towers-destroyed">Univariate Analysis: Distribution of Towers Destroyed</h3>
+
+<p>We conducted a detailed univariate analysis on the distribution of towers destroyed within our dataset. The histogram, after filtering out duplicate objective statistics, reveals a notable bimodal distribution. This pattern shows significant peaks where the number of towers destroyed is concentrated around 2 and 9.</p>
+
+<p>The first peak at 2 towers suggests that many teams, likely the losing ones, managed to destroy only a couple of towers before succumbing to defeat. This could indicate that early tower destruction is not always enough to secure a win, possibly due to stronger defensive plays or a lack of follow-through on early-game advantages.</p>
+
+<p>On the other hand, the second peak at 9 towers highlights the winning teams, who typically dominate the map, securing most or all of the enemy’s towers. This suggests that teams capable of destroying a higher number of towers are generally those that secure the victory, emphasizing the critical importance of maintaining pressure and pushing objectives throughout the game.</p>
+
+<p>This analysis underlines the strategic importance of tower objectives in League of Legends. The distinct distribution suggests that while early tower destruction provides some advantages, consistent objective control, leading to the destruction of a majority of towers, is often what separates the winning teams from the losing ones.</p>
+
+<iframe src="/assets/dist_towers.html" width="100%" height="600px" frameborder="0"></iframe>
+
+<p>It also suggests that games typically remain dominate on one side in terms of objectives. This effect is called “snowballing” where a team is able to carry a small lead into a larger lead throughout the entire game. Surprisingly, although reaching the end of the game takes a minimum of five turrets to be destroyed, many winners appear to have destroyed more. Below is a distribution of towers destroyed by the winning teams.</p>
+
+<iframe src="/assets/win_dist_towers.html" width="100%" height="600px" frameborder="0"></iframe>
+
+<p>Obtaining more towers lead to the acquisition of more gold, resulting in a further lead that will secure a win.</p>
+
+<p>Another column that is integral to visualize is the distribution of major objectives taken other than towers. Major objectives include: baron, dragons, herald and void grubs. The distribution shows that while some teams managed to secure only a few major objectives, others were able to take control of many, which likely contributed to their success in the match. The variability in the number of major objectives taken highlights the importance of these objectives in determining the outcome of the game.</p>
+
+<iframe src="/assets/major_objectives_distribution.html" width="100%" height="600px" frameborder="0"></iframe>
+
+<p>Similarly to towers destroyed, the graph also demonstrates a “snowballing” effect with objectives.</p>
+
+<iframe src="/assets/win_major_objectives_distribution.html" width="100%" height="600px" frameborder="0"></iframe>
 
 <h3 id="bivariate-analysis">Bivariate Analysis</h3>
 <ul>

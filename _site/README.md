@@ -34,7 +34,7 @@ The report seeks to answer which of these objectives are most crucial to winning
 
 ### Relevant Columns
 
-The dataset provides a detailed overview of gameplay metrics and match outcomes from professional League of Legends esports matches. There are 148,992 rows in this dataset, and here’s an introduction to some of the key columns:
+The dataset provides a detailed overview of gameplay metrics and match outcomes from professional League of Legends esports matches.
 
 - **Major Outcome Columns:**
   - **league**: The specific league or tournament in which the match took place.
@@ -43,6 +43,9 @@ The dataset provides a detailed overview of gameplay metrics and match outcomes 
   - **teamkills**: The total number of kills secured by the team.
   - **teamdeaths**: The total number of deaths experienced by the team.
   - **side**: Specifies whether the team was on the "blue" or "red" side during the match.
+  - **champion**: The name of the champion a player selected. Is NaN if the row is considered "team data".
+
+&nbsp; 
 
 - **Objectives:**
   - **firstdragon**: Indicates whether the team secured the first dragon.
@@ -85,8 +88,31 @@ Here is the first 50 gameid-side rows (25 different games) by the groupby below.
 
 <iframe src="assets/grouped_data_1.html" width="100%" height="600px" frameborder="0"></iframe>
 
-### Univariate Analysis
-- **Objective Distribution**: Histograms show the frequency of securing objectives, highlighting their importance in matches.
+### Univariate Analysis: Distribution of Towers Destroyed
+
+We conducted a detailed univariate analysis on the distribution of towers destroyed within our dataset. The histogram, after filtering out duplicate objective statistics, reveals a notable bimodal distribution. This pattern shows significant peaks where the number of towers destroyed is concentrated around 2 and 9.
+
+The first peak at 2 towers suggests that many teams, likely the losing ones, managed to destroy only a couple of towers before succumbing to defeat. This could indicate that early tower destruction is not always enough to secure a win, possibly due to stronger defensive plays or a lack of follow-through on early-game advantages.
+
+On the other hand, the second peak at 9 towers highlights the winning teams, who typically dominate the map, securing most or all of the enemy's towers. This suggests that teams capable of destroying a higher number of towers are generally those that secure the victory, emphasizing the critical importance of maintaining pressure and pushing objectives throughout the game.
+
+This analysis underlines the strategic importance of tower objectives in League of Legends. The distinct distribution suggests that while early tower destruction provides some advantages, consistent objective control, leading to the destruction of a majority of towers, is often what separates the winning teams from the losing ones.
+
+<iframe src="/assets/dist_towers.html" width="100%" height="600px" frameborder="0"></iframe>
+
+It also suggests that games typically remain dominate on one side in terms of objectives. This effect is called "snowballing" where a team is able to carry a small lead into a larger lead throughout the entire game. Surprisingly, although reaching the end of the game takes a minimum of five turrets to be destroyed, many winners appear to have destroyed more. Below is a distribution of towers destroyed by the winning teams.
+
+<iframe src="/assets/win_dist_towers.html" width="100%" height="600px" frameborder="0"></iframe>
+
+Obtaining more towers lead to the acquisition of more gold, resulting in a further lead that will secure a win.
+
+Another column that is integral to visualize is the distribution of major objectives taken other than towers. Major objectives include: baron, dragons, herald and void grubs. The distribution shows that while some teams managed to secure only a few major objectives, others were able to take control of many, which likely contributed to their success in the match. The variability in the number of major objectives taken highlights the importance of these objectives in determining the outcome of the game.
+
+<iframe src="/assets/major_objectives_distribution.html" width="100%" height="600px" frameborder="0"></iframe>
+
+Similarly to towers destroyed, the graph also demonstrates a "snowballing" effect with objectives.
+
+<iframe src="/assets/win_major_objectives_distribution.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ### Bivariate Analysis
 - **Objective vs. Outcome**: Correlation matrices reveal which objectives are strongly associated with winning.
