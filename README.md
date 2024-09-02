@@ -98,21 +98,21 @@ On the other hand, the second peak at 9 towers highlights the winning teams, who
 
 This analysis underlines the strategic importance of tower objectives in League of Legends. The distinct distribution suggests that while early tower destruction provides some advantages, consistent objective control, leading to the destruction of a majority of towers, is often what separates the winning teams from the losing ones.
 
-<iframe src="/assets/dist_towers.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/dist_towers.html" width="100%" height="600px" frameborder="0"></iframe>
 
 It also suggests that games typically remain dominate on one side in terms of objectives. This effect is called "snowballing" where a team is able to carry a small lead into a larger lead throughout the entire game. Surprisingly, although reaching the end of the game takes a minimum of five turrets to be destroyed, many winners appear to have destroyed more. Below is a distribution of towers destroyed by the winning teams.
 
-<iframe src="/assets/win_dist_towers.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/win_dist_towers.html" width="100%" height="600px" frameborder="0"></iframe>
 
 Obtaining more towers lead to the acquisition of more gold, resulting in a further lead that will secure a win.
 
 Another column that is integral to visualize is the distribution of major objectives taken other than towers. Major objectives include: baron, dragons, herald and void grubs. The distribution shows that while some teams managed to secure only a few major objectives, others were able to take control of many, which likely contributed to their success in the match. The variability in the number of major objectives taken highlights the importance of these objectives in determining the outcome of the game.
 
-<iframe src="/assets/major_objectives_distribution.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/major_objectives_distribution.html" width="100%" height="600px" frameborder="0"></iframe>
 
 Similarly to towers destroyed, the graph also demonstrates a "snowballing" effect with objectives.
 
-<iframe src="/assets/win_major_objectives_distribution.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/win_major_objectives_distribution.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ### Bivariate Analysis: Impact of Objective Control on Match Outcome
 
@@ -121,37 +121,37 @@ We performed a bivariate analysis on the relationship between securing major obj
 #### Barons and Match Outcome
 The plot below illustrates the proportion of wins and losses based on the number of Barons secured by a team. Teams that secure more Barons tend to have a higher win rate, suggesting that controlling Baron Nashor provides a significant strategic advantage in securing victory.
 
-<iframe src="/assets/Barons_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/Barons_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
 #### Dragons and Match Outcome
 The following plot shows the win/loss proportions based on the number of Dragons secured. Similar to Barons, securing more Dragons is associated with a higher probability of winning, emphasizing the importance of Dragon control throughout the match.
 
-<iframe src="/assets/Dragons_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/Dragons_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
 #### First Dragon and Match Outcome
 The proportion of wins and losses based on whether the first Dragon was secured indicates that teams who take the first Dragon have a higher win rate, further supporting the strategic value of early objective control.
 
-<iframe src="/assets/Firstdragon_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/Firstdragon_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
 #### Towers and Match Outcome
 This plot shows the win/loss proportions based on the number of Towers destroyed. As expected, teams that destroy more Towers have a higher likelihood of winning, reinforcing the importance of this objective in determining match outcomes.
 
-<iframe src="/assets/Towers_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/Towers_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
 #### Void Grubs and Match Outcome
 Although Void Grubs are less impactful than other objectives, the plot still indicates a positive correlation between securing them and winning the match, though the effect is less pronounced.
 
-<iframe src="/assets/Void_grubs_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/Void_grubs_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
 #### Elders and Match Outcome
 The Elder Dragon, a powerful late-game objective, shows a strong correlation with match outcomes. Teams that secure the Elder Dragon have a significantly higher chance of winning, highlighting its critical role in the late game.
 
-<iframe src="/assets/Elders_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/Elders_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
 #### Inhibitors and Match Outcome
 Finally, the plot for Inhibitors shows that teams which destroy more Inhibitors are overwhelmingly likely to win the game, confirming the crucial importance of this objective in closing out matches.
 
-<iframe src="/assets/Inhibitors_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/Inhibitors_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
 This analysis demonstrates the significant impact of controlling key objectives on match outcomes in League of Legends. Each of these objectives contributes strategically to a team's success, with higher control correlating with better chances of winning.
 
