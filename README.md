@@ -1,3 +1,6 @@
+---
+permalink: README.html
+---
 # League of Legends Objective Impact Analysis
 - Kliment Ho
 
@@ -76,18 +79,13 @@ To streamline the data for analysis, we began by retaining only the relevant col
 Next, we performed two main grouping operations:
 
 Grouping by league: We grouped the data by league and aggregated each objective using the maximum value. This allowed us to see the distribution of objectives across different leagues.
+
 Grouping by gameid and side: This grouping was done to summarize each team’s performance in terms of objectives, teamkills, and teamdeaths.
-These steps provided a clearer view of how objectives correlate with match outcomes and other gameplay statistics, setting the stage for further analysis. Below is a snapshot of the cleaned dataframe:
+These steps provided a clearer view of how objectives correlate with match outcomes and other gameplay statistics, setting the stage for further analysis.
 
-| gameid          | side | result | teamkills | teamdeaths | firstdragon | ... |
-|-----------------|------|--------|-----------|------------|-------------|-----|
-| ESPORTSTMNT01_1 | Blue | 1      | 15        | 10         | 1           | ... |
-| ESPORTSTMNT01_2 | Red  | 0      | 12        | 13         | 0           | ... |
-| ESPORTSTMNT02_1 | Blue | 1      | 18        | 8          | 1           | ... |
-| ESPORTSTMNT02_2 | Red  | 0      | 11        | 15         | 0           | ... |
-| ...             | ...  | ...    | ...       | ...        | ...         | ... |
+Here is the first 50 gameid-side rows (25 different games) by the groupby below.
 
-
+<iframe src="/assets/grouped_data_1.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ### Univariate Analysis
 - **Objective Distribution**: Histograms show the frequency of securing objectives, highlighting their importance in matches.

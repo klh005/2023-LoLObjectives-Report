@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=c884d15107fa9472c67e42bcfefba8ee591b1aee">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>League of Legends Objective Impact Analysis | 2023-LoLObjectives-Report</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="League of Legends Objective Impact Analysis" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An in-depth report regarding the impact of 2023 League of Legends objectives on a match’s outcome. Part of HDSI’s DSC curriculum as a project for DSC80." />
+<meta property="og:description" content="An in-depth report regarding the impact of 2023 League of Legends objectives on a match’s outcome. Part of HDSI’s DSC curriculum as a project for DSC80." />
+<link rel="canonical" href="http://localhost:4000/README.html" />
+<meta property="og:url" content="http://localhost:4000/README.html" />
+<meta property="og:site_name" content="2023-LoLObjectives-Report" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="League of Legends Objective Impact Analysis" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"An in-depth report regarding the impact of 2023 League of Legends objectives on a match’s outcome. Part of HDSI’s DSC curriculum as a project for DSC80.","headline":"League of Legends Objective Impact Analysis","url":"http://localhost:4000/README.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/">
+          <h1>2023-LoLObjectives-Report</h1>
+        </a>
+        <h2>An in-depth report regarding the impact of 2023 League of Legends objectives on a match's outcome. Part of HDSI's DSC curriculum as a project for DSC80.</h2>
+
+        <section id="downloads">
+          
+          <a href="https://github.com/klh005/2023-LoLObjectives-Report" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1 id="league-of-legends-objective-impact-analysis">League of Legends Objective Impact Analysis</h1>
+<ul>
+  <li>Kliment Ho</li>
+</ul>
+
+<p>In a game of League of Legends, players are tasked to destroy the “Nexus” in order to win a game. In order to reach the point of destroying the nexus, players must
+take and destroy many other objectives such as “towers” and “inhibitors”. Additionally, there are other optional objectives that will grant players immense aid
+in achieving a win. The project is designed to solve the looming question: which objectives are the most impactful? By going through sections of analysis(such as
+exploratory data analysis, hypothesis testing) and creating a baseline model with an accomodating fairness analysis, we can discover the identity and meaning of the 
+most impactful objective upon a match’s outcome.</p>
+
+<h2 id="project-structure">Project Structure</h2>
+<ul>
+  <li><strong>Data Cleaning and Preprocessing</strong>: Includes steps to handle missing data, filtering relevant columns, and grouping data by team and match.</li>
+  <li><strong>Exploratory Data Analysis (EDA)</strong>: Univariate, Bivariate, and Aggregate analysis to uncover relationships between objectives and match outcomes.</li>
+  <li><strong>Hypothesis Testing</strong>: Statistical testing to determine the significance of various objectives in match outcomes.</li>
+  <li><strong>Modeling</strong>: Baseline and final models built to predict match outcomes based on objectives.</li>
+  <li><strong>Fairness Analysis</strong>: Evaluation of model performance across different groups to ensure fairness.</li>
+</ul>
+
+<h2 id="an-objective-introduction">An Objective Introduction</h2>
+<p>League of Legends (LoL) is a fast-paced, team-based strategy game where two teams of five players each aim to destroy the opposing team’s Nexus, the core structure in their base. The game is won by methodically working through enemy defenses, including towers and inhibitors, while securing various objectives that grant strategic advantages.</p>
+
+<p>In every match, players engage with different objectives, each offering unique benefits:</p>
+
+<ul>
+  <li>
+    <p>Baron Nashor: A neutral monster, when defeated, provides a team-wide buff that strengthens players. Considered one of the most powerful buffs in the game.</p>
+  </li>
+  <li>
+    <p>Drakes (Dragons): These elemental creatures offer stacking buffs that enhance various aspects of a team’s performance, such as attack power or healing. After four are secured, the Elder Dragon can be summoned, granting even greater power.</p>
+  </li>
+  <li>
+    <p>Rift Herald: Limited to the “early game”, Herald helps by delivering massive damage to enemy towers. It’s used to capture tower or distract the enemy.</p>
+  </li>
+  <li>
+    <p>Jungle Monsters: Including the Scuttle Crab, which grants vision and speed boosts, and other camps that offer gold, experience, and buffs.</p>
+  </li>
+  <li>
+    <p>Towers: The defensive structures that must be destroyed to progress through the map. Taking down towers opens pathways to the Nexus and grants numerous gold to the team.</p>
+  </li>
+</ul>
+
+<p>The report seeks to answer which of these objectives are most crucial to winning a game of League of Legends. Through detailed analysis and modeling, we will uncover the impact each objective has on a match’s outcome, offering insights into strategic priorities for competitive play.</p>
+
+<h3 id="relevant-columns">Relevant Columns</h3>
+
+<p>The dataset provides a detailed overview of gameplay metrics and match outcomes from professional League of Legends esports matches. There are 148,992 rows in this dataset, and here’s an introduction to some of the key columns:</p>
+
+<ul>
+  <li><strong>Major Outcome Columns:</strong>
+    <ul>
+      <li><strong>league</strong>: The specific league or tournament in which the match took place.</li>
+      <li><strong>gameid</strong>: A unique identifier for each match.</li>
+      <li><strong>result</strong>: Indicates the outcome of the match for the team (1 for win, 0 for loss).</li>
+      <li><strong>teamkills</strong>: The total number of kills secured by the team.</li>
+      <li><strong>teamdeaths</strong>: The total number of deaths experienced by the team.</li>
+      <li><strong>side</strong>: Specifies whether the team was on the “blue” or “red” side during the match.</li>
+    </ul>
+  </li>
+  <li><strong>Objectives:</strong>
+    <ul>
+      <li><strong>firstdragon</strong>: Indicates whether the team secured the first dragon.</li>
+      <li><strong>dragons</strong>: The total number of dragons secured by the team.</li>
+      <li><strong>opp_dragons</strong>: The total number of dragons secured by the opposing team.</li>
+      <li><strong>elementaldrakes</strong>: The total number of elemental drakes secured.</li>
+      <li><strong>opp_elementaldrakes</strong>: Elemental drakes secured by the opposing team.</li>
+      <li><strong>infernals, mountains, clouds, oceans, chemtechs, hextechs</strong>: These columns track the specific types of dragons secured by the team, each providing unique buffs.</li>
+      <li><strong>elders</strong>: Indicates whether the team secured the Elder Dragon, a powerful late-game objective.</li>
+      <li><strong>opp_elders</strong>: Tracks whether the opposing team secured the Elder Dragon.</li>
+      <li><strong>firstherald</strong>: Shows whether the team secured the first Rift Herald, a key early-game objective.</li>
+      <li><strong>heralds</strong>: The total number of Rift Heralds secured.</li>
+      <li><strong>opp_heralds</strong>: The number of Rift Heralds secured by the opposing team.</li>
+      <li><strong>void_grubs</strong>: Represents the number of Void Grubs secured, although this objective is generally less impactful.</li>
+      <li><strong>opp_void_grubs</strong>: Tracks the number of Void Grubs secured by the opposing team.</li>
+      <li><strong>firstbaron</strong>: Indicates whether the team secured the first Baron Nashor, a crucial late-game objective.</li>
+      <li><strong>barons</strong>: The total number of Barons secured.</li>
+      <li><strong>opp_barons</strong>: The number of Barons secured by the opposing team.</li>
+      <li><strong>firsttower</strong>: Indicates whether the team destroyed the first tower.</li>
+      <li><strong>towers</strong>: The total number of towers destroyed by the team.</li>
+      <li><strong>opp_towers</strong>: The number of towers destroyed by the opposing team.</li>
+      <li><strong>firstmidtower</strong>: Indicates whether the team destroyed the first mid-lane tower.</li>
+      <li><strong>firsttothreetowers</strong>: Tracks whether the team destroyed the first three towers in the game.</li>
+      <li><strong>turretplates</strong>: The number of turret plates destroyed by the team.</li>
+      <li><strong>opp_turretplates</strong>: The number of turret plates destroyed by the opposing team.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>This detailed breakdown of the dataset columns will guide our analysis as we investigate which objectives most significantly impact match outcomes in League of Legends.</p>
+
+<h2 id="data-cleaning">Data Cleaning</h2>
+<p>To streamline the data for analysis, we began by retaining only the relevant columns: gameid, side, result, teamkills, teamdeaths, and all the objective-related columns. This was done to focus our analysis on how objectives influence match outcomes.</p>
+
+<p>Next, we performed two main grouping operations:</p>
+
+<p>Grouping by league: We grouped the data by league and aggregated each objective using the maximum value. This allowed us to see the distribution of objectives across different leagues.</p>
+
+<p>Grouping by gameid and side: This grouping was done to summarize each team’s performance in terms of objectives, teamkills, and teamdeaths.
+These steps provided a clearer view of how objectives correlate with match outcomes and other gameplay statistics, setting the stage for further analysis.</p>
+
+<p>Here is the first 50 gameid-side rows (25 different games) by the groupby below.</p>
+
+<iframe src="/assets/grouped_data_1.html" width="100%" height="600px" frameborder="0"></iframe>
+
+<h3 id="univariate-analysis">Univariate Analysis</h3>
+<ul>
+  <li><strong>Objective Distribution</strong>: Histograms show the frequency of securing objectives, highlighting their importance in matches.</li>
+</ul>
+
+<h3 id="bivariate-analysis">Bivariate Analysis</h3>
+<ul>
+  <li>
+    <h1 id="objective-vs-outcome-correlation-matrices-reveal-which-objectives-are-strongly-associated-with-winning"><strong>Objective vs. Outcome</strong>: Correlation matrices reveal which objectives are strongly associated with winning.</h1>
+    <p>https://klh005.github.io/2023-LoLObjectives-Report/</p>
+  </li>
+</ul>
+
+      </section>
+    </div>
+  </body>
+</html>
