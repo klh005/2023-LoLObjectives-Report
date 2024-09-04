@@ -237,7 +237,7 @@ Based on the p-value obtained from the permutation test, which is 0.4350, we fai
 
 Below is a histogram showing the distribution of the test statistics during the permutation test, with the observed difference highlighted by a neon green vertical line:
 
-<iframe src="/assets/major_objectives_win_diff.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/major_objectives_win_diff.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ### Interpretation of Results
 
@@ -251,7 +251,7 @@ The dataset will be split into training and testing sets using an 80/20 split to
 
 Below is the merged DataFrame used to train for the prediction problem. We merged both sides of a match into one row to compare the differences of gold for each team based on the winning team's objectives:
 
-<iframe src="/assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ### Overfitting and Underfitting Considerations
 By focusing on key objective metrics (`elementaldrakes`, `elders`, `barons`, `heralds`, `firsttower`, and `towers`), we reduce the likelihood of overfitting while retaining essential predictors. These features were chosen because they reflect significant moments in the game that contribute directly to a team’s overall gold advantage. Limiting the feature set ensures the model generalizes well to new data without losing predictive power.
@@ -279,7 +279,7 @@ This means the model explains about 92.34% of the variance in the opponent's tot
 ### Model Evaluation
 The model seems to perform well, as indicated by the high R² score, but further tuning may be necessary to reduce the MSE. It's also important to note that this model is trained based on objective statistics, which inherently limits its ability to predict large variations in gold from other factors such as player skill or in-game strategy.
 
-<iframe src="/assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
 
 ## Final Model
 

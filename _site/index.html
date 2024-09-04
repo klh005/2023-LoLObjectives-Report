@@ -331,7 +331,7 @@ These steps provided a clearer view of how objectives correlate with match outco
 
 <p>Below is a histogram showing the distribution of the test statistics during the permutation test, with the observed difference highlighted by a neon green vertical line:</p>
 
-<iframe src="/assets/major_objectives_win_diff.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/major_objectives_win_diff.html" width="100%" height="600px" frameborder="0"></iframe>
 
 <h3 id="interpretation-of-results">Interpretation of Results</h3>
 
@@ -345,7 +345,7 @@ These steps provided a clearer view of how objectives correlate with match outco
 
 <p>Below is the merged DataFrame used to train for the prediction problem. We merged both sides of a match into one row to compare the differences of gold for each team based on the winning team’s objectives:</p>
 
-<iframe src="/assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
 
 <h3 id="overfitting-and-underfitting-considerations">Overfitting and Underfitting Considerations</h3>
 <p>By focusing on key objective metrics (<code class="language-plaintext highlighter-rouge">elementaldrakes</code>, <code class="language-plaintext highlighter-rouge">elders</code>, <code class="language-plaintext highlighter-rouge">barons</code>, <code class="language-plaintext highlighter-rouge">heralds</code>, <code class="language-plaintext highlighter-rouge">firsttower</code>, and <code class="language-plaintext highlighter-rouge">towers</code>), we reduce the likelihood of overfitting while retaining essential predictors. These features were chosen because they reflect significant moments in the game that contribute directly to a team’s overall gold advantage. Limiting the feature set ensures the model generalizes well to new data without losing predictive power.</p>
@@ -377,7 +377,7 @@ These steps provided a clearer view of how objectives correlate with match outco
 <h3 id="model-evaluation">Model Evaluation</h3>
 <p>The model seems to perform well, as indicated by the high R² score, but further tuning may be necessary to reduce the MSE. It’s also important to note that this model is trained based on objective statistics, which inherently limits its ability to predict large variations in gold from other factors such as player skill or in-game strategy.</p>
 
-<iframe src="/assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
+<iframe src="assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
 
 <h2 id="final-model">Final Model</h2>
 
