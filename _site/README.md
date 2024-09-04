@@ -265,16 +265,14 @@ The features used for this model are:
 - **Gamelength** (Quantitative): The duration of the game, which influences the number of objectives taken and the total gold accrued by both teams.
 - **Firstdragon_winner** (Nominal): A binary column indicating whether the winning team secured the first dragon.
 - **Dragons_winner** (Quantitative): The total number of dragons taken by the winning team.
-- **Barons_winner** (Quantitative): The total number of barons taken by the winning team.
-- **Towers_winner** (Quantitative): The total number of towers destroyed by the winning team.
 
 ### Encodings
 The variables are either quantitative or binary. The `firstdragon_winner` column is nominal and already encoded as binary (0 or 1). No additional encodings were needed, but a StandardScaler was used to standardize the numerical features.
 
 ### Model Performance
 The model was evaluated using the following metrics:
-- **Mean Squared Error (MSE)**: 9,905,658.8615
-- **R-squared (R²)**: 0.9234
+- **Mean Squared Error (MSE)**: 11103121.0851
+- **R-squared (R²)**: 0.9142
 
 This means the model explains about 92.34% of the variance in the opponent's total gold based on the given features, which is a strong result. However, the high Mean Squared Error indicates that while the model captures overall trends well, there may be significant variance in the predictions for some instances.
 
@@ -282,6 +280,44 @@ This means the model explains about 92.34% of the variance in the opponent's tot
 The model seems to perform well, as indicated by the high R² score, but further tuning may be necessary to reduce the MSE. It's also important to note that this model is trained based on objective statistics, which inherently limits its ability to predict large variations in gold from other factors such as player skill or in-game strategy.
 
 <iframe src="/assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
+
+## Final Model
+
+In our final model, we added three additional features: `teamkills`, `teamdeaths`, and `minionkills`. These features were incorporated because they are directly linked to a team's ability to generate gold and maintain control throughout the game. In League of Legends, minion kills represent a reliable and constant source of income that can scale a team’s strength. Similarly, team kills offer immediate gold rewards and momentum, while team deaths signify moments when the team is vulnerable and can lose control over objectives.
+
+- **teamkills**: Captures how successful the team is in executing fights and gaining gold.
+- **teamdeaths**: Helps indicate moments of weakness and potential power shifts in the game.
+- **barons**: The total number of barons taken by the team.
+- **towers**: The total number of towers destroyed by the team.
+- **minionkills**: A vital source of gold, representing how well the team is able to farm and scale.
+
+We added these features because of their strong correlation with in-game performance and their role in determining the team's ability to achieve objectives. These variables add valuable predictive power, as they provide context for how well the team is performing at different stages of the game.
+
+Our final model utilized a **Random Forest Regressor** to predict the opponent’s total gold (`totalgold_loser`) based on the winning team's statistics. The model relied on features like `gamelength`, `totalgold_winner`, `firstdragon`, `dragons`, `barons`, `towers`, as well as the newly added `teamkills`, `teamdeaths`, and `minionkills`.
+
+### Model Features
+- **Quantitative Features**:
+  - `teamkills`: Continuous, captures the total number of kills the winning team secured.
+  - `teamdeaths`: Continuous, captures the number of times the winning team’s members died.
+  - `minionkills`: Continuous, measures the number of minions the winning team killed.
+  - `gamelength`: Continuous, provides the length of the match, influencing gold accumulation.
+  - `totalgold_winner`: Continuous, measures the total gold earned by the winning team.
+  - `firstdragon`, `dragons`, `barons`, `towers`: Continuous, captures the number of key objectives taken.
+
+- **Encoding**: No categorical features required encoding. Quantitative features were scaled using `StandardScaler` to normalize the data before fitting the model.
+
+### Model Performance
+After training the model, we observed the following results:
+- **Mean Squared Error (MSE)**: 4,502,461.3401
+- **R-squared (R²)**: 0.9652
+
+The high R² value suggests that our model can explain approximately 96.52% of the variance in the opponent's total gold (`totalgold_loser`) based on the winning team's objectives and statistics. This indicates a strong predictive capability, allowing us to understand how the objectives and performance metrics of the winning team correlate with the resources accumulated by their opponents.
+
+### Baseline vs. Final Model
+Compared to our baseline model, which used fewer features, the final model's performance saw significant improvements. By adding features like `teamkills`, `teamdeaths`, and `minionkills`, we captured a more holistic view of the game dynamics, improving the model's predictive power. These features allowed the model to account for more nuances in how games progress and how gold is distributed between teams.
+
+Although we did not tune hyperparameters in this iteration, the inclusion of more relevant features greatly enhanced the model's performance, showcasing that understanding in-game objectives in conjunction with kills and farming efficiency provides a more accurate prediction of the opponent’s total gold.
+
 
 =======
 https://klh005.github.io/2023-LoLObjectives-Report/

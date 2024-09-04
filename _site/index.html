@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=c884d15107fa9472c67e42bcfefba8ee591b1aee">
+    <link rel="stylesheet" href="/assets/css/style.css?v=79c45528d993d4331849527d2421649892386d03">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup theme-color -->
@@ -360,8 +360,6 @@ These steps provided a clearer view of how objectives correlate with match outco
   <li><strong>Gamelength</strong> (Quantitative): The duration of the game, which influences the number of objectives taken and the total gold accrued by both teams.</li>
   <li><strong>Firstdragon_winner</strong> (Nominal): A binary column indicating whether the winning team secured the first dragon.</li>
   <li><strong>Dragons_winner</strong> (Quantitative): The total number of dragons taken by the winning team.</li>
-  <li><strong>Barons_winner</strong> (Quantitative): The total number of barons taken by the winning team.</li>
-  <li><strong>Towers_winner</strong> (Quantitative): The total number of towers destroyed by the winning team.</li>
 </ul>
 
 <h3 id="encodings">Encodings</h3>
@@ -370,8 +368,8 @@ These steps provided a clearer view of how objectives correlate with match outco
 <h3 id="model-performance">Model Performance</h3>
 <p>The model was evaluated using the following metrics:</p>
 <ul>
-  <li><strong>Mean Squared Error (MSE)</strong>: 9,905,658.8615</li>
-  <li><strong>R-squared (R²)</strong>: 0.9234</li>
+  <li><strong>Mean Squared Error (MSE)</strong>: 11103121.0851</li>
+  <li><strong>R-squared (R²)</strong>: 0.9142</li>
 </ul>
 
 <p>This means the model explains about 92.34% of the variance in the opponent’s total gold based on the given features, which is a strong result. However, the high Mean Squared Error indicates that while the model captures overall trends well, there may be significant variance in the predictions for some instances.</p>
@@ -380,6 +378,51 @@ These steps provided a clearer view of how objectives correlate with match outco
 <p>The model seems to perform well, as indicated by the high R² score, but further tuning may be necessary to reduce the MSE. It’s also important to note that this model is trained based on objective statistics, which inherently limits its ability to predict large variations in gold from other factors such as player skill or in-game strategy.</p>
 
 <iframe src="/assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
+
+<h2 id="final-model">Final Model</h2>
+
+<p>In our final model, we added three additional features: <code class="language-plaintext highlighter-rouge">teamkills</code>, <code class="language-plaintext highlighter-rouge">teamdeaths</code>, and <code class="language-plaintext highlighter-rouge">minionkills</code>. These features were incorporated because they are directly linked to a team’s ability to generate gold and maintain control throughout the game. In League of Legends, minion kills represent a reliable and constant source of income that can scale a team’s strength. Similarly, team kills offer immediate gold rewards and momentum, while team deaths signify moments when the team is vulnerable and can lose control over objectives.</p>
+
+<ul>
+  <li><strong>teamkills</strong>: Captures how successful the team is in executing fights and gaining gold.</li>
+  <li><strong>teamdeaths</strong>: Helps indicate moments of weakness and potential power shifts in the game.</li>
+  <li><strong>barons</strong>: The total number of barons taken by the team.</li>
+  <li><strong>towers</strong>: The total number of towers destroyed by the team.</li>
+  <li><strong>minionkills</strong>: A vital source of gold, representing how well the team is able to farm and scale.</li>
+</ul>
+
+<p>We added these features because of their strong correlation with in-game performance and their role in determining the team’s ability to achieve objectives. These variables add valuable predictive power, as they provide context for how well the team is performing at different stages of the game.</p>
+
+<p>Our final model utilized a <strong>Random Forest Regressor</strong> to predict the opponent’s total gold (<code class="language-plaintext highlighter-rouge">totalgold_loser</code>) based on the winning team’s statistics. The model relied on features like <code class="language-plaintext highlighter-rouge">gamelength</code>, <code class="language-plaintext highlighter-rouge">totalgold_winner</code>, <code class="language-plaintext highlighter-rouge">firstdragon</code>, <code class="language-plaintext highlighter-rouge">dragons</code>, <code class="language-plaintext highlighter-rouge">barons</code>, <code class="language-plaintext highlighter-rouge">towers</code>, as well as the newly added <code class="language-plaintext highlighter-rouge">teamkills</code>, <code class="language-plaintext highlighter-rouge">teamdeaths</code>, and <code class="language-plaintext highlighter-rouge">minionkills</code>.</p>
+
+<h3 id="model-features">Model Features</h3>
+<ul>
+  <li><strong>Quantitative Features</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">teamkills</code>: Continuous, captures the total number of kills the winning team secured.</li>
+      <li><code class="language-plaintext highlighter-rouge">teamdeaths</code>: Continuous, captures the number of times the winning team’s members died.</li>
+      <li><code class="language-plaintext highlighter-rouge">minionkills</code>: Continuous, measures the number of minions the winning team killed.</li>
+      <li><code class="language-plaintext highlighter-rouge">gamelength</code>: Continuous, provides the length of the match, influencing gold accumulation.</li>
+      <li><code class="language-plaintext highlighter-rouge">totalgold_winner</code>: Continuous, measures the total gold earned by the winning team.</li>
+      <li><code class="language-plaintext highlighter-rouge">firstdragon</code>, <code class="language-plaintext highlighter-rouge">dragons</code>, <code class="language-plaintext highlighter-rouge">barons</code>, <code class="language-plaintext highlighter-rouge">towers</code>: Continuous, captures the number of key objectives taken.</li>
+    </ul>
+  </li>
+  <li><strong>Encoding</strong>: No categorical features required encoding. Quantitative features were scaled using <code class="language-plaintext highlighter-rouge">StandardScaler</code> to normalize the data before fitting the model.</li>
+</ul>
+
+<h3 id="model-performance-1">Model Performance</h3>
+<p>After training the model, we observed the following results:</p>
+<ul>
+  <li><strong>Mean Squared Error (MSE)</strong>: 4,502,461.3401</li>
+  <li><strong>R-squared (R²)</strong>: 0.9652</li>
+</ul>
+
+<p>The high R² value suggests that our model can explain approximately 96.52% of the variance in the opponent’s total gold (<code class="language-plaintext highlighter-rouge">totalgold_loser</code>) based on the winning team’s objectives and statistics. This indicates a strong predictive capability, allowing us to understand how the objectives and performance metrics of the winning team correlate with the resources accumulated by their opponents.</p>
+
+<h3 id="baseline-vs-final-model">Baseline vs. Final Model</h3>
+<p>Compared to our baseline model, which used fewer features, the final model’s performance saw significant improvements. By adding features like <code class="language-plaintext highlighter-rouge">teamkills</code>, <code class="language-plaintext highlighter-rouge">teamdeaths</code>, and <code class="language-plaintext highlighter-rouge">minionkills</code>, we captured a more holistic view of the game dynamics, improving the model’s predictive power. These features allowed the model to account for more nuances in how games progress and how gold is distributed between teams.</p>
+
+<p>Although we did not tune hyperparameters in this iteration, the inclusion of more relevant features greatly enhanced the model’s performance, showcasing that understanding in-game objectives in conjunction with kills and farming efficiency provides a more accurate prediction of the opponent’s total gold.</p>
 
 <p>=======
 https://klh005.github.io/2023-LoLObjectives-Report/</p>
