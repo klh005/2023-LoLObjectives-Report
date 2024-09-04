@@ -42,6 +42,7 @@ The dataset provides a detailed overview of gameplay metrics and match outcomes 
   - **result**: Indicates the outcome of the match for the team (1 for win, 0 for loss).
   - **teamkills**: The total number of kills secured by the team.
   - **teamdeaths**: The total number of deaths experienced by the team.
+  - **totalgold**: The total number of gold accumulated by the team.
   - **side**: Specifies whether the team was on the "blue" or "red" side during the match.
   - **champion**: The name of the champion a player selected. Is NaN if the row is considered "team data".
 
@@ -154,6 +155,133 @@ Finally, the plot for Inhibitors shows that teams which destroy more Inhibitors 
 <iframe src="assets/Inhibitors_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
 This analysis demonstrates the significant impact of controlling key objectives on match outcomes in League of Legends. Each of these objectives contributes strategically to a team's success, with higher control correlating with better chances of winning.
+
+### Aggregated Data by Towers Destroyed
+
+The table below shows aggregated statistics based on the number of towers destroyed:
+
+<iframe src="assets/by_towers_df.html" width="100%" height="400px" frameborder="0"></iframe>
+
+### Aggregated Data by Major Objectives Taken
+
+The table below shows aggregated statistics based on the number of major objectives taken:
+
+<iframe src="assets/by_major_objectives_df.html" width="100%" height="400px" frameborder="0"></iframe>
+
+&nbsp; 
+
+## Assessment of Missingness
+
+### Not Missing At Random (NMAR) Analysis
+
+The NaN values in the 'first' objective columns, such as `firsttower`, `firstdragon`, and `firstbaron`, are likely Not Missing At Random (NMAR). These NaNs indicate that a team did not meet the specific conditions required to secure these objectives. For example, a NaN in `firsttower` means the team did not take the first tower. This missingness is not random and it directly results from the team's in-game decisions and strategy. Without additional data explaining these strategic choices, the missingness remains NMAR. There is the possibility of other objectives to depend on each other; however, in this dataset, NaN only appears in columns where it is NMAR after data cleaning.
+
+### Missingness Dependency
+
+In this section, we explore whether the missingness of certain columns in our dataset depends on other variables. Specifically, we performed permutation tests to assess the dependency of the missingness of the `firstdragon` and `void_grubs` columns on other factors like `league` and `result`.
+
+#### Permutation Test 1: Missingness of `firstdragon` vs. `league`
+
+**Null Hypothesis**: The distribution of `league` is the same whether `firstdragon` is missing or not.
+
+**Alternative Hypothesis**: The distribution of `league` is different when `firstdragon` is missing.
+
+**Results**:
+- **Observed TVD**: 48.81
+- **P-value**: 0.0000
+
+Since the p-value is significantly less than our significance level of 0.5, we reject the null hypothesis. This indicates that the missingness of `firstdragon` is dependent on the `league` column.
+
+<iframe src="assets/firstdragon_league_tvd.html" width="100%" height="600px" frameborder="0"></iframe>
+
+#### Permutation Test 2: Missingness of `firstdragon` vs. `result`
+
+**Null Hypothesis**: The number of wins (`result`) is the same whether `firstdragon` is missing or not.
+
+**Alternative Hypothesis**: The number of wins (`result`) differs when `firstdragon` is missing.
+
+**Results**:
+- **Observed Difference**: -7567.0
+- **P-value**: 0.5180
+
+With a p-value greater than our significance level of 0.5, we fail to reject the null hypothesis. This suggests that the missingness of `firstdragon` does not significantly depend on the `result`.
+
+<iframe src="assets/firstdragon_result_diff.html" width="100%" height="600px" frameborder="0"></iframe>
+
+#### Permutation Test 3: Missingness of "void_grubs" vs. Result (Wins) Using TVD
+
+**Null Hypothesis**: The distribution of results (wins/losses) is the same regardless of whether "void_grubs" is missing or not.
+
+**Alternative Hypothesis**: The distribution of results is different depending on whether "void_grubs" is missing.
+
+Since the data for "void_grubs" showed that it was mostly missing with a few rows being zero, we tested the dependency using TVD. The observed TVD was **1.9941**, with a **p-value of 0.6190**. This suggests that the missingness of "void_grubs" does not depend on the result of the match. Since the p-value greater than our significance level of 0.5, we fail to reject the null hypothesis.
+
+<iframe src="assets/void_grubs_result_tvd.html" width="100%" height="600px" frameborder="0"></iframe>
+
+## Hypothesis Testing
+
+To investigate the impact of the number of major objectives (Baron, Dragon, Rift Herald, Void Grubs) on the likelihood of winning a match, we conducted a hypothesis test.
+
+- **Null Hypothesis (H₀)**: The number of major objectives secured does not significantly affect the probability of winning.
+- **Alternative Hypothesis (H₁)**: The number of major objectives secured significantly increases the probability of winning.
+- **Test Statistic**: Absolute difference in win proportions.
+- **Significance Level**: 5%
+
+### Results
+- **Observed Difference**: 0.0455
+- **P-value**: 0.4350
+
+Based on the p-value obtained from the permutation test, which is 0.4350, we fail to reject the null hypothesis. This suggests that the number of major objectives secured does not significantly impact the probability of winning. Although the observed difference in win proportions was positive, indicating a slight increase in win rate with more objectives secured, the result is not statistically significant.
+
+### Visualization
+
+Below is a histogram showing the distribution of the test statistics during the permutation test, with the observed difference highlighted by a neon green vertical line:
+
+<iframe src="/assets/major_objectives_win_diff.html" width="100%" height="600px" frameborder="0"></iframe>
+
+### Interpretation of Results
+
+The results from our hypothesis test indicate that non-tower major objectives (such as Baron, Dragons, Rift Herald, and Void Grubs) have a minor impact on the outcome of a match, but this impact is not substantial. The observed difference in win rates is small, and the p-value suggests that this difference is not statistically significant. This means that while securing these objectives may provide some advantage, no single major objective significantly influences the overall outcome of a match on its own.
+
+## Framing a Prediction Problem
+
+The goal of this prediction problem is to estimate the total gold of the losing team based on the objectives secured by the winning team. By predicting the opponent’s total gold, we aim to quantify the "gold gap" or disparity between the two teams, providing insights into how objectives contribute to the winning team's lead and dominance. Understanding this gap can help evaluate the impact of in-game objectives on maintaining or widening a team's advantage. By predicting the opponent's total gold, we aim to measure how objectives directly contribute to the overall advantage of the winning team. This approach focuses on the importance of objectives in influencing game outcomes, helping teams understand which objectives contribute most to maintaining a lead.
+
+The dataset will be split into training and testing sets using an 80/20 split to avoid overfitting the data. The target variable is the opponent's **totalgold**, aiming to predict the losing team's total gold using the winning team’s objective statistics. We will evaluate the model using Mean Squared Error (MSE) and R-squared. MSE will provide insight into the average prediction error, while R-squared will indicate how much of the variance in the opponent's total gold is explained by the features. A higher R-squared value would indicate a better fit.
+
+Below is the merged DataFrame used to train for the prediction problem. We merged both sides of a match into one row to compare the differences of gold for each team based on the winning team's objectives:
+
+<iframe src="/assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
+
+### Overfitting and Underfitting Considerations
+By focusing on key objective metrics (`elementaldrakes`, `elders`, `barons`, `heralds`, `firsttower`, and `towers`), we reduce the likelihood of overfitting while retaining essential predictors. These features were chosen because they reflect significant moments in the game that contribute directly to a team’s overall gold advantage. Limiting the feature set ensures the model generalizes well to new data without losing predictive power.
+
+## Prediction Model
+
+### Features in the Model
+For this prediction model, we used a Random Forest Regressor to predict the total gold earned by the opposing team based on the winning team's objective statistics and match duration.
+
+The features used for this model are:
+- **Gamelength** (Quantitative): The duration of the game, which influences the number of objectives taken and the total gold accrued by both teams.
+- **Firstdragon_winner** (Nominal): A binary column indicating whether the winning team secured the first dragon.
+- **Dragons_winner** (Quantitative): The total number of dragons taken by the winning team.
+- **Barons_winner** (Quantitative): The total number of barons taken by the winning team.
+- **Towers_winner** (Quantitative): The total number of towers destroyed by the winning team.
+
+### Encodings
+The variables are either quantitative or binary. The `firstdragon_winner` column is nominal and already encoded as binary (0 or 1). No additional encodings were needed, but a StandardScaler was used to standardize the numerical features.
+
+### Model Performance
+The model was evaluated using the following metrics:
+- **Mean Squared Error (MSE)**: 9,905,658.8615
+- **R-squared (R²)**: 0.9234
+
+This means the model explains about 92.34% of the variance in the opponent's total gold based on the given features, which is a strong result. However, the high Mean Squared Error indicates that while the model captures overall trends well, there may be significant variance in the predictions for some instances.
+
+### Model Evaluation
+The model seems to perform well, as indicated by the high R² score, but further tuning may be necessary to reduce the MSE. It's also important to note that this model is trained based on objective statistics, which inherently limits its ability to predict large variations in gold from other factors such as player skill or in-game strategy.
+
+<iframe src="/assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
 
 =======
 https://klh005.github.io/2023-LoLObjectives-Report/
