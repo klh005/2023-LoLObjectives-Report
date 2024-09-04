@@ -4,9 +4,9 @@
 
 In a game of League of Legends, players are tasked to destroy the "Nexus" in order to win a game. In order to reach the point of destroying the nexus, players must
 take and destroy many other objectives such as "towers" and "inhibitors". Additionally, there are other optional objectives that will grant players immense aid
-in achieving a win. The project is designed to solve the looming question: which objectives are the most impactful? By going through sections of analysis(such as
-exploratory data analysis, hypothesis testing) and creating a baseline model with an accomodating fairness analysis, we can discover the identity and meaning of the 
-most impactful objective upon a match's outcome.
+in achieving a win. This project seeks to answer: Which objectives are the most impactful for winning a match?
+
+Through exploratory data analysis, hypothesis testing, and modeling, we investigate the influence of objectives on match outcomes and provide insights into which objectives are most critical to winning. By doing so, we can uncover how in-game decisions related to objectives affect a team's chances of securing victory.
 
 ## Project Structure
 - **Data Cleaning and Preprocessing**: Includes steps to handle missing data, filtering relevant columns, and grouping data by team and match.
@@ -178,7 +178,7 @@ The NaN values in the 'first' objective columns, such as `firsttower`, `firstdra
 
 ### Missingness Dependency
 
-In this section, we explore whether the missingness of certain columns in our dataset depends on other variables. Specifically, we performed permutation tests to assess the dependency of the missingness of the `firstdragon` and `void_grubs` columns on other factors like `league` and `result`.
+In this section, we explore whether the missingness of certain columns in our dataset depends on other variables. Specifically, we performed permutation tests to assess the dependency of the missingness of the `firstdragon` and `void_grubs` columns on other factors like `league` and `result`. For this experiment, we will set the significance level to 0.5 due to the nature of the objective `firstdragon` being a nominal categorical variable with two outcomes: is the team to take the first dragon or is not the team to take the first dragon.
 
 #### Permutation Test 1: Missingness of `firstdragon` vs. `league`
 
@@ -317,6 +317,35 @@ The high R² value suggests that our model can explain approximately 96.52% of t
 Compared to our baseline model, which used fewer features, the final model's performance saw significant improvements. By adding features like `teamkills`, `teamdeaths`, and `minionkills`, we captured a more holistic view of the game dynamics, improving the model's predictive power. These features allowed the model to account for more nuances in how games progress and how gold is distributed between teams.
 
 Although we did not tune hyperparameters in this iteration, the inclusion of more relevant features greatly enhanced the model's performance, showcasing that understanding in-game objectives in conjunction with kills and farming efficiency provides a more accurate prediction of the opponent’s total gold.
+
+## Fairness Analysis
+
+In this section, we aim to determine whether our model is fair across different groups based on the total number of team kills secured by the winning team. The question we are addressing is: "Does our model perform worse for games where the winning team has fewer team kills (less than or equal to 20) than it does for games where the winning team has more than 20 team kills?"
+
+### Group Definition
+
+- **Group X**: Teams with **team kills ≤ 20** (less aggressive games).
+- **Group Y**: Teams with **team kills > 20** (more aggressive games).
+
+### Evaluation Metric
+
+We selected **Mean Squared Error (MSE)** as our evaluation metric. Since we are predicting the total gold of the losing team, MSE helps us assess the accuracy of the predictions by showing the average squared difference between the predicted and actual values. A lower MSE indicates a better performance of the model.
+
+### Hypotheses
+
+- **Null Hypothesis (H₀)**: The model is fair. The MSE for teams with **team kills ≤ 20** is roughly the same as the MSE for teams with **team kills > 20**, and any observed differences are due to random chance.
+- **Alternative Hypothesis (H₁)**: The model is unfair. The MSE for teams with **team kills ≤ 20** is different from the MSE for teams with **team kills > 20**.
+
+### Test Statistic and Significance Level
+
+We used the **difference in MSE** between Group X and Group Y as the test statistic, and we set our significance level at **0.05**.
+
+### Results
+
+- **Observed MSE difference**: 134495.4767
+- **P-value**: 0.98
+
+Since the p-value is greater than the significance level of 0.05, we fail to reject the null hypothesis. This means that there is no significant difference in the model's performance between the two groups. The model appears to be fair with respect to team kills, and there is no evidence to suggest that it performs worse for games with fewer team kills compared to games with more team kills.
 
 
 =======
