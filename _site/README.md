@@ -1,6 +1,7 @@
 
-# League of Legends Objective Impact Analysis
-- Kliment Ho
+# The Study of Objective-based Gameplay: 
+# An Analysis On League of Legends' Objectives
+- Report by Kliment Ho
 
 In a game of League of Legends, players are tasked to destroy the "Nexus" in order to win a game. In order to reach the point of destroying the nexus, players must
 take and destroy many other objectives such as "towers" and "inhibitors". Additionally, there are other optional objectives that will grant players immense aid
