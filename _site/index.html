@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=79c45528d993d4331849527d2421649892386d03">
+    <link rel="stylesheet" href="/assets/css/style.css?v=0577db5255ab091a38c9708318752071c905d1a0">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup theme-color -->
@@ -70,7 +70,7 @@
 
 <p>In a game of League of Legends, players are tasked to destroy the “Nexus” in order to win a game. In order to reach the point of destroying the nexus, players must
 take and destroy many other objectives such as “towers” and “inhibitors”. Additionally, there are other optional objectives that will grant players immense aid
-in achieving a win. This project seeks to answer: Which objectives are the most impactful for winning a match?</p>
+in achieving a win. This project seeks to answer: in what ways are objectives impactful a match of League of Legends?</p>
 
 <p>Through exploratory data analysis, hypothesis testing, and modeling, we investigate the influence of objectives on match outcomes and provide insights into which objectives are most critical to winning. By doing so, we can uncover how in-game decisions related to objectives affect a team’s chances of securing victory.</p>
 
@@ -106,7 +106,7 @@ in achieving a win. This project seeks to answer: Which objectives are the most 
   </li>
 </ul>
 
-<p>The report seeks to answer which of these objectives are most crucial to winning a game of League of Legends. Through detailed analysis and modeling, we will uncover the impact each objective has on a match’s outcome, offering insights into strategic priorities for competitive play.</p>
+<p>There are also plenty of smaller objectives such as “scuttle crab” which grants extra vision(integral for a team’s planning and information) for the team. However, for the sake of the report, we choose to focus on the above-mentioned objectives along with other stats such as “teamkills”, “teamdeaths”, “teamgold”, “minionkills”, and if a team claims a specific objective first. The report seeks to answer which of these objectives are most crucial to winning a game of League of Legends. Through detailed analysis and modeling, we will uncover the impact each objective has on a match’s outcome, offering insights into strategic priorities for competitive play.</p>
 
 <h3 id="relevant-columns">Relevant Columns</h3>
 
@@ -164,14 +164,13 @@ in achieving a win. This project seeks to answer: Which objectives are the most 
 <h2 id="data-cleaning">Data Cleaning</h2>
 <p>To streamline the data for analysis, we began by retaining only the relevant columns: gameid, side, result, teamkills, teamdeaths, and all the objective-related columns. This was done to focus our analysis on how objectives influence match outcomes.</p>
 
-<p>Next, we performed two main grouping operations:</p>
+<p>We performed two main grouping operations:</p>
 
-<p>Grouping by league: We grouped the data by league and aggregated each objective using the maximum value. This allowed us to see the distribution of objectives across different leagues.</p>
+<p>We grouped the data by league and aggregated each objective using the maximum value, allowing us to see the distribution of objectives across different leagues.</p>
 
-<p>Grouping by gameid and side: This grouping was done to summarize each team’s performance in terms of objectives, teamkills, and teamdeaths.
-These steps provided a clearer view of how objectives correlate with match outcomes and other gameplay statistics, setting the stage for further analysis.</p>
+<p>We also had grouping done to summarize each team’s performance in terms of objectives, teamkills, and teamdeaths, providing a clearer view of how objectives correlate with match outcomes and other gameplay statistics.</p>
 
-<p>Here is the first 50 gameid-side rows (25 different games) by the groupby below.</p>
+<p>Below is the first 50 gameid-side rows (25 different games):</p>
 
 <iframe src="assets/grouped_data_1.html" width="100%" height="600px" frameborder="0"></iframe>
 
@@ -203,44 +202,44 @@ These steps provided a clearer view of how objectives correlate with match outco
 
 <h3 id="bivariate-analysis-impact-of-objective-control-on-match-outcome">Bivariate Analysis: Impact of Objective Control on Match Outcome</h3>
 
-<p>We performed a bivariate analysis on the relationship between securing major objectives and the match results to understand how objective control influences the likelihood of winning.</p>
+<p>We performed a bivariate analysis on the relationship between securing major objectives and each team across all matches to understand how objective control influences the likelihood of winning. The graph shows two colors, representing the winning and losing teams. This will compare the proportions of the number of wins to losses over the objective score.</p>
 
-<h4 id="barons-and-match-outcome">Barons and Match Outcome</h4>
+<h4 id="barons">Barons</h4>
 <p>The plot below illustrates the proportion of wins and losses based on the number of Barons secured by a team. Teams that secure more Barons tend to have a higher win rate, suggesting that controlling Baron Nashor provides a significant strategic advantage in securing victory.</p>
 
 <iframe src="assets/Barons_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<h4 id="dragons-and-match-outcome">Dragons and Match Outcome</h4>
+<h4 id="dragons">Dragons</h4>
 <p>The following plot shows the win/loss proportions based on the number of Dragons secured. Similar to Barons, securing more Dragons is associated with a higher probability of winning, emphasizing the importance of Dragon control throughout the match.</p>
 
 <iframe src="assets/Dragons_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<h4 id="first-dragon-and-match-outcome">First Dragon and Match Outcome</h4>
+<h4 id="first-dragon">First Dragon</h4>
 <p>The proportion of wins and losses based on whether the first Dragon was secured indicates that teams who take the first Dragon have a higher win rate, further supporting the strategic value of early objective control.</p>
 
 <iframe src="assets/Firstdragon_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<h4 id="towers-and-match-outcome">Towers and Match Outcome</h4>
+<h4 id="towers">Towers</h4>
 <p>This plot shows the win/loss proportions based on the number of Towers destroyed. As expected, teams that destroy more Towers have a higher likelihood of winning, reinforcing the importance of this objective in determining match outcomes.</p>
 
 <iframe src="assets/Towers_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<h4 id="void-grubs-and-match-outcome">Void Grubs and Match Outcome</h4>
-<p>Although Void Grubs are less impactful than other objectives, the plot still indicates a positive correlation between securing them and winning the match, though the effect is less pronounced.</p>
+<h4 id="void-grubs">Void Grubs</h4>
+<p>Although Void Grubs are less impactful than other objectives, the plot still indicates a positive correlation between securing them and winning the match, though the effect is less pronounced. However, as we would later see, void grubs would be rendered irrelevant for this report.</p>
 
 <iframe src="assets/Void_grubs_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<h4 id="elders-and-match-outcome">Elders and Match Outcome</h4>
+<h4 id="elders">Elders</h4>
 <p>The Elder Dragon, a powerful late-game objective, shows a strong correlation with match outcomes. Teams that secure the Elder Dragon have a significantly higher chance of winning, highlighting its critical role in the late game.</p>
 
 <iframe src="assets/Elders_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<h4 id="inhibitors-and-match-outcome">Inhibitors and Match Outcome</h4>
-<p>Finally, the plot for Inhibitors shows that teams which destroy more Inhibitors are overwhelmingly likely to win the game, confirming the crucial importance of this objective in closing out matches.</p>
+<h4 id="inhibitors">Inhibitors</h4>
+<p>The plot for Inhibitors shows that teams which destroy more Inhibitors are overwhelmingly likely to win the game, confirming the crucial importance of this objective in closing out matches. At the end of the game, inhibitors can respawn which allows the possibility of an unlimited range of inhibitors destroyed as long as the game does not end.</p>
 
 <iframe src="assets/Inhibitors_prop_bar.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<p>This analysis demonstrates the significant impact of controlling key objectives on match outcomes in League of Legends. Each of these objectives contributes strategically to a team’s success, with higher control correlating with better chances of winning.</p>
+<p>The above columns are compared against the total number of matches, showing the number of teams having 4 dragons claimed or taking no barons at all.</p>
 
 <h3 id="aggregated-data-by-towers-destroyed">Aggregated Data by Towers Destroyed</h3>
 
@@ -260,7 +259,7 @@ These steps provided a clearer view of how objectives correlate with match outco
 
 <h3 id="not-missing-at-random-nmar-analysis">Not Missing At Random (NMAR) Analysis</h3>
 
-<p>The NaN values in the ‘first’ objective columns, such as <code class="language-plaintext highlighter-rouge">firsttower</code>, <code class="language-plaintext highlighter-rouge">firstdragon</code>, and <code class="language-plaintext highlighter-rouge">firstbaron</code>, are likely Not Missing At Random (NMAR). These NaNs indicate that a team did not meet the specific conditions required to secure these objectives. For example, a NaN in <code class="language-plaintext highlighter-rouge">firsttower</code> means the team did not take the first tower. This missingness is not random and it directly results from the team’s in-game decisions and strategy. Without additional data explaining these strategic choices, the missingness remains NMAR. There is the possibility of other objectives to depend on each other; however, in this dataset, NaN only appears in columns where it is NMAR after data cleaning.</p>
+<p>The NaN values in the ‘first’ objective columns, such as <code class="language-plaintext highlighter-rouge">firsttower</code>, <code class="language-plaintext highlighter-rouge">firstdragon</code>, and <code class="language-plaintext highlighter-rouge">firstbaron</code>, are likely Not Missing At Random (NMAR). These NaNs indicate that a team did not meet the specific conditions required to secure these objectives. For example, a NaN in <code class="language-plaintext highlighter-rouge">firsttower</code> means the team did not take the first tower. This missingness is not random and it directly results from the team’s in-game decisions and strategy. Without additional data explaining these strategic choices, the missingness remains NMAR. There is the possibility of other objectives to depend on each other; however, in this dataset, NaN only appears in columns where it is NMAR after data cleaning. Without data cleaning, however, the values would then be considered Missing At Random as there are objective stats that could be tied to invalid games or matches with weird data organization.</p>
 
 <h3 id="missingness-dependency">Missingness Dependency</h3>
 
@@ -304,7 +303,7 @@ These steps provided a clearer view of how objectives correlate with match outco
 
 <p><strong>Alternative Hypothesis</strong>: The distribution of results is different depending on whether “void_grubs” is missing.</p>
 
-<p>Since the data for “void_grubs” showed that it was mostly missing with a few rows being zero, we tested the dependency using TVD. The observed TVD was <strong>1.9941</strong>, with a <strong>p-value of 0.6190</strong>. This suggests that the missingness of “void_grubs” does not depend on the result of the match. Since the p-value greater than our significance level of 0.5, we fail to reject the null hypothesis.</p>
+<p>Since the data for “void_grubs” showed that it was mostly missing with a few rows being zero, we tested the dependency using TVD. The observed TVD was <strong>1.9941</strong>, with a <strong>p-value of 0.6190</strong>. This suggests that the missingness of “void_grubs” does not depend on the result of the match. Since the p-value greater than our significance level of 0.5, we fail to reject the null hypothesis. Looking closer at the dataset, we can see that the objective was not implemented for any 2023 matches and we can safely discard the column. Void grubs are objectives that was added in version 14.1; however, all patches in 2023 start with the version ‘13’ which further shows that void grubs are an unnecessary column to include.</p>
 
 <iframe src="assets/void_grubs_result_tvd.html" width="100%" height="600px" frameborder="0"></iframe>
 
@@ -325,15 +324,9 @@ These steps provided a clearer view of how objectives correlate with match outco
   <li><strong>P-value</strong>: 0.4350</li>
 </ul>
 
-<p>Based on the p-value obtained from the permutation test, which is 0.4350, we fail to reject the null hypothesis. This suggests that the number of major objectives secured does not significantly impact the probability of winning. Although the observed difference in win proportions was positive, indicating a slight increase in win rate with more objectives secured, the result is not statistically significant.</p>
-
-<h3 id="visualization">Visualization</h3>
-
-<p>Below is a histogram showing the distribution of the test statistics during the permutation test, with the observed difference highlighted by a neon green vertical line:</p>
+<p>Based on the p-value obtained from the permutation test, which is 0.4350, we fail to reject the null hypothesis. This suggests that the number of major objectives secured does not significantly impact the probability of winning. Although the observed difference in win proportions was positive, indicating a slight increase in win rate with more objectives secured, the result is not statistically significant. Below is a histogram showing the distribution of the test statistics during the permutation test, with the observed difference highlighted by a neon green vertical line:</p>
 
 <iframe src="assets/major_objectives_win_diff.html" width="100%" height="600px" frameborder="0"></iframe>
-
-<h3 id="interpretation-of-results">Interpretation of Results</h3>
 
 <p>The results from our hypothesis test indicate that non-tower major objectives (such as Baron, Dragons, Rift Herald, and Void Grubs) have a minor impact on the outcome of a match, but this impact is not substantial. The observed difference in win rates is small, and the p-value suggests that this difference is not statistically significant. This means that while securing these objectives may provide some advantage, no single major objective significantly influences the overall outcome of a match on its own.</p>
 
@@ -341,38 +334,35 @@ These steps provided a clearer view of how objectives correlate with match outco
 
 <p>The goal of this prediction problem is to estimate the total gold of the losing team based on the objectives secured by the winning team. By predicting the opponent’s total gold, we aim to quantify the “gold gap” or disparity between the two teams, providing insights into how objectives contribute to the winning team’s lead and dominance. Understanding this gap can help evaluate the impact of in-game objectives on maintaining or widening a team’s advantage. By predicting the opponent’s total gold, we aim to measure how objectives directly contribute to the overall advantage of the winning team. This approach focuses on the importance of objectives in influencing game outcomes, helping teams understand which objectives contribute most to maintaining a lead.</p>
 
-<p>The dataset will be split into training and testing sets using an 80/20 split to avoid overfitting the data. The target variable is the opponent’s <strong>totalgold</strong>, aiming to predict the losing team’s total gold using the winning team’s objective statistics. We will evaluate the model using Mean Squared Error (MSE) and R-squared. MSE will provide insight into the average prediction error, while R-squared will indicate how much of the variance in the opponent’s total gold is explained by the features. A higher R-squared value would indicate a better fit.</p>
+<p>In more concise words, can we predict the losing team’s total gold based on knowing what objectives the winning team captured?</p>
+
+<p>The already filtered dataset will be using an 80/20 split to avoid overfitting the data. The target variable is the opponent’s <strong>totalgold</strong>, aiming to predict the losing team’s total gold using the winning team’s objective statistics. We will evaluate the model using Mean Squared Error and R-squared. MSE will provide insight into the average prediction error, while R-squared will indicate how much of the variance in the opponent’s total gold is explained by the features. A higher R-squared value would indicate a better fit.</p>
 
 <p>Below is the merged DataFrame used to train for the prediction problem. We merged both sides of a match into one row to compare the differences of gold for each team based on the winning team’s objectives:</p>
 
 <iframe src="assets/merged_df.html" width="100%" height="600px" frameborder="0"></iframe>
 
-<h3 id="overfitting-and-underfitting-considerations">Overfitting and Underfitting Considerations</h3>
 <p>By focusing on key objective metrics (<code class="language-plaintext highlighter-rouge">elementaldrakes</code>, <code class="language-plaintext highlighter-rouge">elders</code>, <code class="language-plaintext highlighter-rouge">barons</code>, <code class="language-plaintext highlighter-rouge">heralds</code>, <code class="language-plaintext highlighter-rouge">firsttower</code>, and <code class="language-plaintext highlighter-rouge">towers</code>), we reduce the likelihood of overfitting while retaining essential predictors. These features were chosen because they reflect significant moments in the game that contribute directly to a team’s overall gold advantage. Limiting the feature set ensures the model generalizes well to new data without losing predictive power.</p>
 
-<h2 id="prediction-model">Prediction Model</h2>
-
-<h3 id="features-in-the-model">Features in the Model</h3>
-<p>For this prediction model, we used a Random Forest Regressor to predict the total gold earned by the opposing team based on the winning team’s objective statistics and match duration.</p>
+<h2 id="baseline-model">Baseline Model</h2>
+<p>We used a Random Forest Regressor to predict the total gold earned by the opposing team based on the winning team’s objective statistics and match duration.</p>
 
 <p>The features used for this model are:</p>
 <ul>
-  <li><strong>Gamelength</strong> (Quantitative): The duration of the game, which influences the number of objectives taken and the total gold accrued by both teams.</li>
-  <li><strong>Firstdragon_winner</strong> (Nominal): A binary column indicating whether the winning team secured the first dragon.</li>
-  <li><strong>Dragons_winner</strong> (Quantitative): The total number of dragons taken by the winning team.</li>
+  <li><strong>gamelength</strong> (Continuous, Quantitative): The duration of the game, which influences the number of objectives taken and the total gold accrued by both teams.</li>
+  <li><strong>firstdragon</strong> (Nominal): A binary column indicating whether the winning team secured the first dragon.</li>
+  <li><strong>dragons</strong> (Discrete, Quantitative): The total number of dragons taken by the winning team.</li>
 </ul>
 
-<h3 id="encodings">Encodings</h3>
 <p>The variables are either quantitative or binary. The <code class="language-plaintext highlighter-rouge">firstdragon_winner</code> column is nominal and already encoded as binary (0 or 1). No additional encodings were needed, but a StandardScaler was used to standardize the numerical features.</p>
 
-<h3 id="model-performance">Model Performance</h3>
-<p>The model was evaluated using the following metrics:</p>
+<p>As a result…</p>
 <ul>
   <li><strong>Mean Squared Error (MSE)</strong>: 11103121.0851</li>
   <li><strong>R-squared (R²)</strong>: 0.9142</li>
 </ul>
 
-<p>This means the model explains about 92.34% of the variance in the opponent’s total gold based on the given features, which is a strong result. However, the high Mean Squared Error indicates that while the model captures overall trends well, there may be significant variance in the predictions for some instances.</p>
+<p>About 91.42% of the variance in the opponent’s total gold based on the given features could be explained by the model. Skeptically this is already a strong result and defeats the previous narrative of predicting the enemy’s <code class="language-plaintext highlighter-rouge">totalgold</code> as being extremely varying. With that being said, the high Mean Squared Error indicates that while the model captures overall trends well which would indicate a significant variance in the predictions for some to many cases. Turning the MSE to RMSE shows that the total gold could vary in error by roughly 3000 gold. The median of the <code class="language-plaintext highlighter-rouge">totalgold</code> for winners in our dataset is 60577 gold. Reasonably, the RMSE calculation is accurate within an appropriate range; further improvement to decreasing the RMSE may later incentivize hyperpara</p>
 
 <h3 id="model-evaluation">Model Evaluation</h3>
 <p>The model seems to perform well, as indicated by the high R² score, but further tuning may be necessary to reduce the MSE. It’s also important to note that this model is trained based on objective statistics, which inherently limits its ability to predict large variations in gold from other factors such as player skill or in-game strategy.</p>
@@ -384,80 +374,121 @@ These steps provided a clearer view of how objectives correlate with match outco
 <p>In our final model, we added three additional features: <code class="language-plaintext highlighter-rouge">teamkills</code>, <code class="language-plaintext highlighter-rouge">teamdeaths</code>, and <code class="language-plaintext highlighter-rouge">minionkills</code>. These features were incorporated because they are directly linked to a team’s ability to generate gold and maintain control throughout the game. In League of Legends, minion kills represent a reliable and constant source of income that can scale a team’s strength. Similarly, team kills offer immediate gold rewards and momentum, while team deaths signify moments when the team is vulnerable and can lose control over objectives.</p>
 
 <ul>
-  <li><strong>teamkills</strong>: Captures how successful the team is in executing fights and gaining gold.</li>
-  <li><strong>teamdeaths</strong>: Helps indicate moments of weakness and potential power shifts in the game.</li>
-  <li><strong>barons</strong>: The total number of barons taken by the team.</li>
-  <li><strong>towers</strong>: The total number of towers destroyed by the team.</li>
-  <li><strong>minionkills</strong>: A vital source of gold, representing how well the team is able to farm and scale.</li>
+  <li><strong>teamkills</strong>: Captures how successful the team is in executing fights, overall gaining gold.</li>
+  <li><strong>teamdeaths</strong>: Helps indicate moments of weakness and identify the gaps between the winner and losing team.</li>
+  <li><strong>barons</strong>: The total number of barons taken by the team; baron gives gold.</li>
+  <li><strong>towers</strong>: The total number of towers destroyed by the team; tower gives gold and shows how far ahead the winning team is.</li>
+  <li><strong>minionkills</strong>: A vital source of gold. More minion kills typically equates to more gold and a focus on gaining gold.</li>
 </ul>
 
-<p>We added these features because of their strong correlation with in-game performance and their role in determining the team’s ability to achieve objectives. These variables add valuable predictive power, as they provide context for how well the team is performing at different stages of the game.</p>
+<p>Because of their strong correlation with in-game performance, planning, and the effect of a team’s ability to achieve objectives, the above features are added to aid in a tighter MSE calculation.</p>
 
 <p>Our final model utilized a <strong>Random Forest Regressor</strong> to predict the opponent’s total gold (<code class="language-plaintext highlighter-rouge">totalgold_loser</code>) based on the winning team’s statistics. The model relied on features like <code class="language-plaintext highlighter-rouge">gamelength</code>, <code class="language-plaintext highlighter-rouge">totalgold_winner</code>, <code class="language-plaintext highlighter-rouge">firstdragon</code>, <code class="language-plaintext highlighter-rouge">dragons</code>, <code class="language-plaintext highlighter-rouge">barons</code>, <code class="language-plaintext highlighter-rouge">towers</code>, as well as the newly added <code class="language-plaintext highlighter-rouge">teamkills</code>, <code class="language-plaintext highlighter-rouge">teamdeaths</code>, and <code class="language-plaintext highlighter-rouge">minionkills</code>.</p>
 
-<h3 id="model-features">Model Features</h3>
+<h3 id="quantitative-features">Quantitative Features</h3>
 <ul>
-  <li><strong>Quantitative Features</strong>:
-    <ul>
-      <li><code class="language-plaintext highlighter-rouge">teamkills</code>: Continuous, captures the total number of kills the winning team secured.</li>
-      <li><code class="language-plaintext highlighter-rouge">teamdeaths</code>: Continuous, captures the number of times the winning team’s members died.</li>
-      <li><code class="language-plaintext highlighter-rouge">minionkills</code>: Continuous, measures the number of minions the winning team killed.</li>
-      <li><code class="language-plaintext highlighter-rouge">gamelength</code>: Continuous, provides the length of the match, influencing gold accumulation.</li>
-      <li><code class="language-plaintext highlighter-rouge">totalgold_winner</code>: Continuous, measures the total gold earned by the winning team.</li>
-      <li><code class="language-plaintext highlighter-rouge">firstdragon</code>, <code class="language-plaintext highlighter-rouge">dragons</code>, <code class="language-plaintext highlighter-rouge">barons</code>, <code class="language-plaintext highlighter-rouge">towers</code>: Continuous, captures the number of key objectives taken.</li>
-    </ul>
-  </li>
-  <li><strong>Encoding</strong>: No categorical features required encoding. Quantitative features were scaled using <code class="language-plaintext highlighter-rouge">StandardScaler</code> to normalize the data before fitting the model.</li>
+  <li><code class="language-plaintext highlighter-rouge">teamkills</code>: Discrete, captures the total number of kills the winning team secured.</li>
+  <li><code class="language-plaintext highlighter-rouge">teamdeaths</code>: Discrete, captures the number of times the winning team’s members died.</li>
+  <li><code class="language-plaintext highlighter-rouge">minionkills</code>: Discrete, measures the number of minions the winning team killed.</li>
+  <li><code class="language-plaintext highlighter-rouge">gamelength</code>: Continuous, provides the length of the match, influencing gold accumulation.</li>
+  <li><code class="language-plaintext highlighter-rouge">totalgold</code>: Discrete, measures the total gold earned by the winning team.</li>
+  <li><code class="language-plaintext highlighter-rouge">firstdragon</code>, <code class="language-plaintext highlighter-rouge">dragons</code>, <code class="language-plaintext highlighter-rouge">barons</code>, <code class="language-plaintext highlighter-rouge">towers</code>: Discrete, captures the number of key objectives taken.</li>
 </ul>
 
-<h3 id="model-performance-1">Model Performance</h3>
+<p>All used quantitative features were scaled using <code class="language-plaintext highlighter-rouge">StandardScaler</code> to normalize the data.</p>
+
+<p>We attempted to perform hyperparameter tuning but realized that the offset of runtime was not needed when considering its marginal results. In which case, the best hyperparameters settings are:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">regressor__max_depth</code>: 20</li>
+  <li><code class="language-plaintext highlighter-rouge">regressor__min_samples_leaf</code>: 1</li>
+  <li><code class="language-plaintext highlighter-rouge">regressor__min_samples_split</code>: 10</li>
+  <li><code class="language-plaintext highlighter-rouge">regressor__n_estimators</code>: 300</li>
+</ul>
+
+<h3 id="model-performance">Model Performance</h3>
 <p>After training the model, we observed the following results:</p>
 <ul>
-  <li><strong>Mean Squared Error (MSE)</strong>: 4,502,461.3401</li>
-  <li><strong>R-squared (R²)</strong>: 0.9652</li>
+  <li><strong>Mean Squared Error (MSE)</strong>: 4591782.9952</li>
+  <li><strong>R-squared (R²)</strong>: 0.9659</li>
 </ul>
 
-<p>The high R² value suggests that our model can explain approximately 96.52% of the variance in the opponent’s total gold (<code class="language-plaintext highlighter-rouge">totalgold_loser</code>) based on the winning team’s objectives and statistics. This indicates a strong predictive capability, allowing us to understand how the objectives and performance metrics of the winning team correlate with the resources accumulated by their opponents.</p>
+<p>The more-than-average high R² value explain approximately 96.59% of the variance in the opponent’s total gold (indicated by <code class="language-plaintext highlighter-rouge">totalgold_loser</code>) based on the winning team’s objectives (such as dragons, barons, towers, etc.) and major statistics. This indicates a strong predictive capability, allowing us to understand how the objectives and performance metrics of the winning team correlate with the resources accumulated by their opponents.</p>
 
-<h3 id="baseline-vs-final-model">Baseline vs. Final Model</h3>
 <p>Compared to our baseline model, which used fewer features, the final model’s performance saw significant improvements. By adding features like <code class="language-plaintext highlighter-rouge">teamkills</code>, <code class="language-plaintext highlighter-rouge">teamdeaths</code>, and <code class="language-plaintext highlighter-rouge">minionkills</code>, we captured a more holistic view of the game dynamics, improving the model’s predictive power. These features allowed the model to account for more nuances in how games progress and how gold is distributed between teams.</p>
 
 <p>Although we did not tune hyperparameters in this iteration, the inclusion of more relevant features greatly enhanced the model’s performance, showcasing that understanding in-game objectives in conjunction with kills and farming efficiency provides a more accurate prediction of the opponent’s total gold.</p>
 
+<h3 id="residuals-and-actual-vs-predicted-plot">Residuals and Actual vs Predicted Plot</h3>
+
+<p>Below is the <strong>Actual vs Predicted</strong> plot for our final model:</p>
+
+<iframe src="assets/scatter_actual_vs_predicted.html" width="100%" height="600px" frameborder="0"></iframe>
+
+<p>The <strong>Actual vs Predicted Plot</strong> helps in visualizing the accuracy of our model:</p>
+<ul>
+  <li><strong>x-axis</strong>: The actual total gold for the losing team (<code class="language-plaintext highlighter-rouge">totalgold_loser</code>).</li>
+  <li><strong>y-axis</strong>: The predicted total gold based on the winning team’s statistics.
+The closer the points are to the red dashed line (representing perfect prediction), the better the model’s predictions.</li>
+</ul>
+
+<p>From the plot, it can be seen that most points lie near the red line, which shows that our model is performing well in predicting total gold for the losing team.</p>
+
+<p>Next, the <strong>Residuals Plot</strong> shows the difference between the actual and predicted values:</p>
+
+<iframe src="assets/residual_plot.html" width="100%" height="600px" frameborder="0"></iframe>
+
+<p>Residuals represent the difference between actual and predicted values (Residual = Actual - Predicted). A residual plot helps visualize how well the model’s predictions match the actual values:</p>
+<ul>
+  <li><strong>x-axis</strong>: Residuals (difference between actual and predicted).</li>
+  <li><strong>y-axis</strong>: Frequency of residuals.</li>
+</ul>
+
+<p>In the residual plot, most residuals are concentrated around zero, indicating that the majority of predictions are accurate. The presence of a few outlier residuals (further from zero) suggests some deviations, but these are within acceptable bounds for complex game data like this.</p>
+
+<h4 id="importance-of-residuals-and-actual-vs-predicted-plot">Importance of Residuals and Actual vs Predicted Plot</h4>
+<p>The <strong>residual plot</strong> shows that our model’s predictions are unbiased, as residuals are centered around zero without forming any noticeable patterns. The <strong>actual vs predicted plot</strong> confirms that the model has a strong predictive performance, as most predictions align closely with the actual values. While no model is perfect, the consistent alignment of points and the limited spread of residuals indicate that this model is plausible and reliable for predicting the losing team’s total gold based on the winning team’s objectives and in-game performance.</p>
+
 <h2 id="fairness-analysis">Fairness Analysis</h2>
 
-<p>In this section, we aim to determine whether our model is fair across different groups based on the total number of team kills secured by the winning team. The question we are addressing is: “Does our model perform worse for games where the winning team has fewer team kills (less than or equal to 20) than it does for games where the winning team has more than 20 team kills?”</p>
+<p>To determine whether our model is fair, we evaluate the model based on the <strong>team kills to game length ratio</strong> secured by the winning team. For short, we will call this new column <code class="language-plaintext highlighter-rouge">teamkills_ratio</code>.</p>
 
-<h3 id="group-definition">Group Definition</h3>
+<p>Our question: “Does our model perform worse for games where the winning team has a lower teamkills_ratio (less aggressive games) compared to games with a higher teamkills_ratio (more aggressive games)?”</p>
+
+<p>The reason to choose this question is because total gold of a team can vastly variate by how passive or aggressive a team plays. Passive games would mean that teams are “farming” for gold, having higher <code class="language-plaintext highlighter-rouge">minionkills</code> which equates to higher gold count. More aggressive games will have teams with higher <code class="language-plaintext highlighter-rouge">teamkills</code> per <code class="language-plaintext highlighter-rouge">gamelength</code> which mean that the gap of gold between the winning and losing team would be more divided. As seen many times above, matches tend to be “snowbally” or one-sided, a case where one team tends to have dominance throughout the match based on early performance. We fear that the model could potentially treat these two situations unfairly, favoring less agressive games as <code class="language-plaintext highlighter-rouge">totalgold</code> is more easily calculated based on <code class="language-plaintext highlighter-rouge">minionkills</code>; on the other hand, more aggressive games may have more variability which would interfere with the model’s effectiveness. As such, we split the data into two groups as shown below:</p>
 
 <ul>
-  <li><strong>Group X</strong>: Teams with <strong>team kills ≤ 20</strong> (less aggressive games).</li>
-  <li><strong>Group Y</strong>: Teams with <strong>team kills &gt; 20</strong> (more aggressive games).</li>
+  <li><strong>Group X</strong>: Teams with a <strong>teamkills_ratio ≤ 0.01</strong> (less aggressive games).</li>
+  <li><strong>Group Y</strong>: Teams with a <strong>teamkills_ratio &gt; 0.01</strong> (more aggressive games).</li>
 </ul>
+
+<p>The <strong>teamkills_ratio</strong> is defined as the number of team kills divided by the game length, which provides a normalized measure of the team’s aggression throughout the match.</p>
 
 <h3 id="evaluation-metric">Evaluation Metric</h3>
 
-<p>We selected <strong>Mean Squared Error (MSE)</strong> as our evaluation metric. Since we are predicting the total gold of the losing team, MSE helps us assess the accuracy of the predictions by showing the average squared difference between the predicted and actual values. A lower MSE indicates a better performance of the model.</p>
+<p>We selected <strong>Mean Squared Error (MSE)</strong> as our evaluation metric. We are predicting the total gold of the losing team and MSE helps us assess the accuracy of the predictions by showing the average squared difference between the predicted and actual values. Our models used Random Forest Regression which results in a metric of MSE. A lower MSE indicates better performance of the model.</p>
 
-<h3 id="hypotheses">Hypotheses</h3>
+<p>Deciding our hypothesis requires us to consider the fairness between aggressive and passive games, as seen below:</p>
 
 <ul>
-  <li><strong>Null Hypothesis (H₀)</strong>: The model is fair. The MSE for teams with <strong>team kills ≤ 20</strong> is roughly the same as the MSE for teams with <strong>team kills &gt; 20</strong>, and any observed differences are due to random chance.</li>
-  <li><strong>Alternative Hypothesis (H₁)</strong>: The model is unfair. The MSE for teams with <strong>team kills ≤ 20</strong> is different from the MSE for teams with <strong>team kills &gt; 20</strong>.</li>
+  <li><strong>Null Hypothesis (H₀)</strong>: The model is fair. The MSE for teams with a <strong>teamkills_ratio ≤ 0.0100</strong> is roughly the same as the MSE for teams with a <strong>teamkills_ratio &gt; 0.01</strong>, and any observed differences are due to random chance.</li>
+  <li><strong>Alternative Hypothesis (H₁)</strong>: The model is unfair. The MSE for teams with a <strong>teamkills_ratio ≤ 0.0100</strong> is different from the MSE for teams with a <strong>teamkills_ratio &gt; 0.01</strong>.</li>
 </ul>
-
-<h3 id="test-statistic-and-significance-level">Test Statistic and Significance Level</h3>
 
 <p>We used the <strong>difference in MSE</strong> between Group X and Group Y as the test statistic, and we set our significance level at <strong>0.05</strong>.</p>
 
 <h3 id="results-1">Results</h3>
 
 <ul>
-  <li><strong>Observed MSE difference</strong>: 134495.4767</li>
-  <li><strong>P-value</strong>: 0.98</li>
+  <li><strong>Median teamkills_ratio</strong>: 0.0100</li>
+  <li><strong>Observed MSE difference</strong>: -342769.32801399636</li>
+  <li><strong>P-value</strong>: 0.776</li>
 </ul>
 
-<p>Since the p-value is greater than the significance level of 0.05, we fail to reject the null hypothesis. This means that there is no significant difference in the model’s performance between the two groups. The model appears to be fair with respect to team kills, and there is no evidence to suggest that it performs worse for games with fewer team kills compared to games with more team kills.</p>
+<p>As displayed above, we decided to split the groups by the median teamkills_ratio of 0.01.</p>
+
+<p>Since the p-value is greater than the significance level of 0.05, we fail to reject the null hypothesis.  There is no significant difference in the model’s performance between the two groups; however, the p-value of 0.392 indicates that there is some effect of unfairness in the model. The negative observed MSE difference indicates that the model actually performs slightly better for the more aggressive games (higher teamkills_ratio), but the difference is not statistically significant.</p>
+
+<p>The model appears to be fair with respect to the teamkills_ratio, and there is no evidence to suggest that it performs worse for games with a lower teamkills_ratio compared to games with a higher teamkills_ratio.</p>
 
 <p>=======
 https://klh005.github.io/2023-LoLObjectives-Report/</p>
